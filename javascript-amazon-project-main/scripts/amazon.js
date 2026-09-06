@@ -1,4 +1,5 @@
-import {cart} from '../data/cart.js';<script type="module" src="scripts/amazon.js"></script>
+import {cart} from '../data/cart.js';
+import {products} from '../data/products.js';
 let productsHTML = '';
 
 products.forEach((product) => {
