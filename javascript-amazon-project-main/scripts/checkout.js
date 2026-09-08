@@ -29,7 +29,7 @@ function deliveryOptionsHTML(matchingProduct, cartItem) {
 		const isChecked = deliveryOption.id === cartItem.deliveryOptionId;
 
 		html += `
-			<div class="delivery-option">
+			<div class="delivery-option ">
 				<input type="radio"
 					${isChecked ? 'checked' : ''}
 					class="delivery-option-input"
@@ -131,7 +131,7 @@ document.querySelectorAll('.delivery-option-input')
 
 			updateDeliveryOption(productId, deliveryOptionId);
 
-			let matchingDeliveryOption;
+			let matchingDeliveryOption;ī
 			deliveryOption.forEach((option) => {
 				if (option.id === deliveryOptionId) {
 					matchingDeliveryOption = option;
