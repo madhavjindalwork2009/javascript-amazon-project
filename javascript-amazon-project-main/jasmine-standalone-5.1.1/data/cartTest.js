@@ -1,4 +1,4 @@
-import { cart, loadFromStorage, addToCart } from '../../data/cart.js';
+import { cart, loadFromStorage, addToCart } from '../../data/cart-oops.js';
 
 describe('cart', () => {
   beforeEach(() => {
