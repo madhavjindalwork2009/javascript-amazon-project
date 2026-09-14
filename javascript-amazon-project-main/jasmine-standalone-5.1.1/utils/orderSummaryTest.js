@@ -1,9 +1,14 @@
 import { carts } from '../../data/cart-oops.js';
 import { renderOrderSummary } from '../../scripts/checkout/orderSummary.js';
-
+import { loadProducts } from '../../data/products.js';
 describe('order summary', () => {
   let summaryContainer;
 
+  beforeAll((done) => {
+    loadProducts(() => {
+      done();
+    });
+  });
   beforeEach(() => {
     localStorage.clear();
     document.querySelectorAll('.js-order-summary').forEach((el) => el.remove());
