@@ -67,7 +67,8 @@ export function loadProducts(fun) {
     fun();
   });
 
-  xhr.open('GET', 'backend/products.json');
+  const productsUrl = new URL('../backend/products.json', import.meta.url);
+  xhr.open('GET', productsUrl);
   xhr.send();
 }
 
