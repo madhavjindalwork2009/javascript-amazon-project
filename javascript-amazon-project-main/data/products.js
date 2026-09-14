@@ -52,7 +52,26 @@ const date = new Date();
 export function getProduct(productId) {
   return products.find((product) => product.id === productId);
 }
-const productDetails = [
+export let products = [];
+export function loadProducts(fun) {
+  const xhr = new XMLHttpRequest();
+
+  xhr.addEventListener('load', () => {
+    products = JSON.parse(xhr.responseText).map((productDetails) => {
+      if (productDetails.type === 'clothing') {
+        return new Clothing(productDetails);
+      }
+      return new Product(productDetails);
+    });
+
+    fun();
+  });
+
+  xhr.open('GET', 'backend/products.json');
+  xhr.send();
+}
+
+/*const productDetails = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
     image: "images/products/athletic-cotton-socks-6-pairs.jpg",
@@ -720,3 +739,4 @@ export const products = productDetails.map((productDetails) => {
 
   return new Product(productDetails);
 });
+*/
