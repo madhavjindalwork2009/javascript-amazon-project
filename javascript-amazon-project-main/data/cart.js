@@ -64,12 +64,16 @@ export function updateDeliveryOption(productId, deliveryOptionId) {
 	saveToStorage();
 }
 
-export function loadCart(fun) {
+export function loadCart(fun, errorFun) {
 	const xhr = new XMLHttpRequest();
 
 	xhr.addEventListener('load', () => {
 		console.log(xhr.response);
 		fun();
+	});
+
+	xhr.addEventListener('error', () => {
+		errorFun(xhr.statusText || 'Unable to load cart');
 	});
 
 	xhr.open('GET', 'https://supersimplebackend.dev/cart');

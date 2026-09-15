@@ -1,21 +1,26 @@
 import {renderOrderSummary} from './checkout/orderSummary.js';
 import {renderPaymentSummary} from './checkout/paymentSummary.js';
-import {loadProducts,loadProductsFetch} from '../data/products.js';
+import {loadProductsFetch} from '../data/products.js';
 import {loadCart} from '../data/cart.js';
 
-Promise.all([
-  loadProductsFetch(),
-  new Promise((resolve) => {
-    loadProducts(() => {
-      resolve('value1');
+async function loadPage() {
+  try {
+    await loadProductsFetch();
+
+    await new Promise((resolve, reject) => {
+      loadCart(
+        () => resolve(),
+        (error) => reject(error)
+      );
     });
-  }),
-  new Promise((resolve) => {
-    loadCart(() => {
-      resolve();
-    });
-  })
-]).then(() => {
-  renderOrderSummary();
-  renderPaymentSummary();
+
+    renderOrderSummary();
+    renderPaymentSummary();
+  } catch (error) {
+    console.error('Unable to load checkout data:', error);
+  }
+}
+
+loadPage().catch((error) => {
+  console.error('Unexpected checkout error:', error);
 });

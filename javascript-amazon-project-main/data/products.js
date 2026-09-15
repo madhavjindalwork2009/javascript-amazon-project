@@ -66,7 +66,11 @@ export function loadProductsFetch(fun){
       }
       return new Product(productDetails);
     });
-  });
+    })
+    .catch((error) => {
+      console.error('Unable to load products:', error);
+      throw error;
+    });
   return promise;
 }
 
@@ -77,7 +81,7 @@ loadProductsFetch().then(() => {
 });
 */
 
-export function loadProducts(fun) {
+export function loadProducts(fun, errorFun) {
   const xhr = new XMLHttpRequest();
 
   xhr.addEventListener('load', () => {
@@ -89,6 +93,10 @@ export function loadProducts(fun) {
     });
 
     fun();
+  });
+
+  xhr.addEventListener('error', () => {
+    errorFun(xhr.statusText || 'Unable to load products');
   });
 
   const productsUrl = new URL('../backend/products.json', import.meta.url);
