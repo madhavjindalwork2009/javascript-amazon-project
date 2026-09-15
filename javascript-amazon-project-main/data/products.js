@@ -53,6 +53,30 @@ export function getProduct(productId) {
   return products.find((product) => product.id === productId);
 }
 export let products = [];
+
+export function loadProductsFetch(fun){
+  const promise  = fetch('../backend/products.json')
+  .then((response) => { 
+    return response.json();
+  })
+  .then((productsData) => {
+    products = productsData.map((productDetails) => {
+      if (productDetails.type === 'clothing') {
+        return new Clothing(productDetails);
+      }
+      return new Product(productDetails);
+    });
+  });
+  return promise;
+}
+
+
+/*
+loadProductsFetch().then(() => {
+  console.log('Products loaded successfully');
+});
+*/
+
 export function loadProducts(fun) {
   const xhr = new XMLHttpRequest();
 
