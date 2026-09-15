@@ -88,5 +88,13 @@
         </div>
       </div>
     </div>
+
+    <script type = "module" src = "scripts/tracking.js"> </script>
+    <script>
+      const  url =  new URL(window.location.href);
+      const orderId = url.searchParams.get('orderId');
+      const orderIdElement = document.querySelector('.order-id');
+      orderIdElement.textContent = orderId;
+    </script>
   </body>
 </html>
