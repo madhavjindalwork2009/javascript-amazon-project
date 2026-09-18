@@ -1,13 +1,25 @@
 import {cart, addToCart} from '../data/cart-oops.js';
 import {products, loadProducts} from '../data/products.js';
-let productsHTML = '';
+
 loadProducts(renderProductsGrids);
-function renderProductsGrids() {
-  products.forEach((product) => {
+function renderProductsGrids(productsToRender = products) {
+  let productsHTML = '';
+
+  if (productsToRender.length === 0) {
+    document.querySelector('.js-products-grid').innerHTML = `
+      <div class="no-products-message">
+        <h2>No products found</h2>
+        <p>Try a different search term.</p>
+      </div>
+    `;
+    return;
+  }
+
+  productsToRender.forEach((product) => {
     productsHTML += `
       <div class="product-container">
         <div class="product-image-container">
-          <img class="product-image" src="${product.image}">
+          <img class="product-image" src="${product.image}" alt="${product.name}">
         </div>
 
         <div class="product-name limit-text-to-2-lines">
@@ -87,3 +99,27 @@ function renderProductsGrids() {
       });
     });
 }
+
+function searchProducts() {
+  const searchBar = document.querySelector('.search-bar');
+  const searchTerm = searchBar.value.trim().toLowerCase();
+
+  if (!searchTerm) {
+    renderProductsGrids();
+    return;
+  }
+
+  const matchingProducts = products.filter((product) => {
+    const searchableText = [product.name, ...product.keywords].join(' ').toLowerCase();
+    return searchableText.includes(searchTerm);
+  });
+
+  renderProductsGrids(matchingProducts);
+}
+
+document.querySelector('.search-button').addEventListener('click', searchProducts);
+document.querySelector('.search-bar').addEventListener('keydown', (event) => {
+  if (event.key === 'Enter') {
+    searchProducts();
+  }
+});

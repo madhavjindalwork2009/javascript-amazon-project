@@ -17,6 +17,22 @@
   grid-template-columns: repeat(8, 1fr);
 }
 
+.no-products-message {
+  grid-column: 1 / -1;
+  padding: 80px 20px;
+  text-align: center;
+  color: rgb(86, 89, 89);
+}
+
+.no-products-message h2 {
+  margin-bottom: 8px;
+  color: rgb(19, 25, 33);
+}
+
+.no-products-message p {
+  margin: 0;
+}
+
 /* @media is used to create responsive design (making the
    website look good on any screen size). This @media
    means when the screen width is 2000px or less, we
