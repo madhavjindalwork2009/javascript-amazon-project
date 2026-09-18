@@ -1,4 +1,4 @@
-import { carts } from '../../data/cart-class.js';
+import { carts } from '../../data/cart-oops.js';
 import { renderOrderSummary } from '../../scripts/checkout/orderSummary.js';
 import { loadProducts,loadProductsFetch } from '../../data/products.js';
 describe('order summary', () => {

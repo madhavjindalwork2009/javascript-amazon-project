@@ -1,4 +1,4 @@
-import {cart,removeFromCart,updateDeliveryOption} from '../../data/cart-class.js';
+import {cart,removeFromCart,updateDeliveryOption} from '../../data/cart-oops.js';
 import {products,getProduct} from '../../data/products.js';
 import {deliveryOption,getDeliveryOption} from '../../data/deliveryOption.js';
 import {formatCurrency} from '../utils/money.js';

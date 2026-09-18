@@ -1,8 +1,8 @@
-import { cart } from "../../data/cart-class.js";
+import { cart } from "../../data/cart-oops.js";
 import { getProduct } from "../../data/products.js";
 import { formatCurrency } from "../utils/money.js";
 import { getDeliveryOption } from "../../data/deliveryOption.js";
-import {addOrder} from '../../data/order.js';
+import {addOrder} from '../../data/orders.js';
 async function placeOrder() {
     try {
         const response = await fetch('https://supersimplebackend.dev/orders', {
@@ -83,12 +83,17 @@ export function renderPaymentSummary() {
                 },
                 body: JSON.stringify({ cart })
             });
-            const orderData = await response.json();
 
+            if (!response.ok) {
+                throw new Error(`Order request failed: ${response.status}`);
+            }
+
+            const orderData = await response.json();
             addOrder(orderData);
+            window.location.href = 'orders.html';
         } catch (error) {
             console.error('Unable to place order:', error);
+            alert('Failed to place order. Please try again.');
         }
-        window.location.href = 'orders.html';
     });
 }
