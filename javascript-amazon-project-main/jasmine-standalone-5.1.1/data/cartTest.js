@@ -1,4 +1,4 @@
-import { cart, loadFromStorage, addToCart } from '../../data/cart-oops.js';
+import { cart, loadFromStorage, addToCart, clearCart } from '../../data/cart-oops.js';
 
 describe('cart', () => {
   beforeEach(() => {
@@ -42,5 +42,21 @@ describe('cart', () => {
     expect(localStorage.setItem).toHaveBeenCalledTimes(1);
     expect(cart[0].productId).toEqual('e43638ce-6aa0-4b85-b27f-e1d07eb678c6');
     expect(cart[0].quantity).toEqual(2);
+  });
+
+  it('clears the cart and saved cart data', () => {
+    localStorage.getItem.and.returnValue(JSON.stringify([
+      {
+        productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
+        quantity: 1,
+        deliveryOptionId: '1'
+      }
+    ]));
+
+    loadFromStorage();
+    clearCart();
+
+    expect(cart.length).toEqual(0);
+    expect(localStorage.setItem).toHaveBeenCalledWith('cart', '[]');
   });
 });

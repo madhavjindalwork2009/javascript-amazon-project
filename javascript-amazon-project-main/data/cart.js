@@ -3,6 +3,7 @@ export {
 	carts,
 	loadFromStorage,
 	addToCart,
+	clearCart,
 	removeFromCart,
 	updateDeliveryOption
 } from './cart-oops.js';

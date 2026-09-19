@@ -55,7 +55,8 @@ export function getProduct(productId) {
 export let products = [];
 
 export function loadProductsFetch(fun){
-  const promise  = fetch('../backend/products.json')
+  const productsUrl = new URL('../backend/products.json', import.meta.url);
+  const promise  = fetch(productsUrl)
   .then((response) => { 
     return response.json();
   })

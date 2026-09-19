@@ -18,6 +18,11 @@ export const carts = {
 		localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(this.cartItems));
 	},
 
+	clearCart() {
+		this.cartItems = [];
+		this.saveToStorage();
+	},
+
 	addToCart(productId, quantity) {
 		let matchingCartItem;
 
@@ -70,6 +75,10 @@ export function loadFromStorage() {
 
 export function addToCart(productId, quantity) {
 	carts.addToCart(productId, quantity);
+}
+
+export function clearCart() {
+	carts.clearCart();
 }
 
 export function removeFromCart(productId) {
