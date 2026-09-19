@@ -18,6 +18,14 @@ describe('cart', () => {
     expect(cart[0].quantity).toEqual(1);
   });
 
+  it('starts empty when no cart is saved', () => {
+    loadFromStorage();
+    addToCart('e43638ce-6aa0-4b85-b27f-e1d07eb678c6', 1);
+
+    expect(cart.length).toEqual(1);
+    expect(cart[0].quantity).toEqual(1);
+  });
+
   it('adds an existing product to the cart', () => {
     localStorage.getItem.and.returnValue(JSON.stringify([
       {
